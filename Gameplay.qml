@@ -14,20 +14,20 @@ Rectangle{
     height: gaeme.height
     onNewGamestarted:{
     n1.y = -n1.height; n2.y = -n2.height; n3.y = -n3.height; n4.y = -n4.height;
-    hi.score = 0;hi.fail = 0;swatch.restart();swatch1.restart();swatch2.restart();swatch3.restart()();swatch4.restart();
+    hi.score = 0;hi.fail = 0;swatch.restart();swatch1.restart();swatch2.restart();swatch3.restart();swatch4.restart();
 
 
     }
     Timer{
         id:swatch
-        interval: 10
+        interval: 1
 
         running: true
         repeat: true
         triggeredOnStart: true
 
         onTriggered: {if (fail >= 3){
-                swatch1.stop();swatch2.stop();swatch3.stop();swatch4.stop(); swatch.restart();gameisover(hi.score)
+                swatch1.stop();swatch2.stop();swatch3.stop();swatch4.stop(); swatch.stop();gameisover(hi.score)
 
             }
         }
@@ -60,15 +60,15 @@ Rectangle{
                 y: -2*height
                 Timer{
                     id:swatch1
-                    interval: 10 + 20/hi.score
+                    interval: 1 + 25/hi.score
 
                     running: true
                     repeat: true
                     triggeredOnStart: true
 
-                    onTriggered: {n1.y += rec1.tm
+                    onTriggered: {n1.y += rec1.tm + hi.score/15
                         if(n1.y > rec1.height){n1.y = -height; hi.fail +=1}
-                        if(hi.score === 0){swatch1.interval = 31}
+                        if(hi.score === 0){swatch1.interval = 26}
                     }
 
 
@@ -76,7 +76,7 @@ Rectangle{
                 Shortcut{
                     context: Qt.ApplicationShortcut
                     sequences: ["F"]
-                    onActivated: {if((l.y - n1.y <= l.height) && (l.y >= n1.y))
+                    onActivated: {if((l.y - n1.y <= l.height + hi.score/10) && (l.y >= n1.y))
                         { hi.score += 1; superAwesomeSignal(hi.score);n1.y= -2*n1.height}
                     }
                 }
@@ -106,15 +106,15 @@ Rectangle{
                 y: -height
                 Timer{
                     id:swatch2
-                    interval: 10 + 20/hi.score
+                    interval: 1 + 25/hi.score
 
                     running: true
                     repeat: true
                     triggeredOnStart: true
 
-                    onTriggered: {n2.y += rec2.tm
+                    onTriggered: {n2.y += rec2.tm + hi.score/15
                         if(n2.y > rec4.height){n2.y = -height; hi.fail +=1}
-                        if(hi.score === 0){swatch2.interval = 31}
+                        if(hi.score === 0){swatch2.interval = 26}
                     }
 
 
@@ -123,7 +123,7 @@ Rectangle{
                 Shortcut{
                     context: Qt.ApplicationShortcut
                     sequences: ["G"]
-                    onActivated:{if((l.y - n2.y <= l.height) && (l.y >= n2.y))
+                    onActivated:{if((l.y - n2.y <= l.height  + hi.score/10) && (l.y >= n2.y))
                         { hi.score += 1; superAwesomeSignal(hi.score); n2.y = -n2.height }
                     }
                 }
@@ -153,15 +153,15 @@ Rectangle{
                 y: -5*height
                 Timer{
                     id:swatch3
-                    interval: 10 + 20/hi.score
+                    interval: 1 + 25/hi.score
 
                     running: true
                     repeat: true
                     triggeredOnStart: true
 
-                    onTriggered: {n3.y += rec3.tm
+                    onTriggered: {n3.y += rec3.tm + hi.score/15
                         if(n3.y > rec3.height){n3.y = -height; hi.fail +=1}
-                        if(hi.score === 0){swatch3.interval = 31}
+                        if(hi.score === 0){swatch3.interval = 26}
                     }
 
                 }
@@ -169,7 +169,7 @@ Rectangle{
                 Shortcut{
                     context: Qt.ApplicationShortcut
                     sequences: ["J"]
-                    onActivated: {if((l.y - n3.y <= l.height) && (l.y >= n3.y))
+                    onActivated: {if((l.y - n3.y <= l.height + hi.score/10) && (l.y >= n3.y))
                         {hi.score += 1;superAwesomeSignal(hi.score); n3.y = -5*n3.height }
                     }
                 }
@@ -199,15 +199,15 @@ Rectangle{
                 y: -height
                 Timer{
                     id:swatch4
-                    interval: 10 + 20/(hi.score)
+                    interval: 1 + 25/(hi.score)
 
                     running: true
                     repeat: true
                     triggeredOnStart: true
 
-                    onTriggered: {n4.y += rec4.tm
+                    onTriggered: {n4.y += rec4.tm + hi.score/15
                         if(n4.y > rec4.height){n4.y = -height; hi.fail +=1}
-                        if(hi.score === 0){swatch4.interval = 31}
+                        if(hi.score === 0){swatch4.interval = 26}
                     }
 
 
@@ -216,7 +216,7 @@ Rectangle{
                 Shortcut{
                     context: Qt.ApplicationShortcut
                     sequences: ["K"]
-                    onActivated: {if((l.y - n4.y <= l.height) && (l.y >= n4.y))
+                    onActivated: {if((l.y - n4.y <= l.height + hi.score/10) && (l.y >= n4.y))
                         {hi.score += 1;superAwesomeSignal(hi.score); n4.y = -n4.height}
                     }
                 }
@@ -230,43 +230,39 @@ Rectangle{
 
 
 
-    Rectangle{
+    Note{
         id: l
-        width: 50
-        height: 50
         color: "blue"
-        y: rec1.height - height - rec1.border.width
-        x: rec1.width - width - rec1.border.width
+        y: rec1.height - height
+        x: rec1.width - width
+        Text{text:qsTr("F"); color: "white"; anchors.centerIn: parent; scale:2 }
 
     }
 
-    Rectangle{
+    Note{
         id: l2
-        width: 50
-        height: 50
         color: "red"
-        y: rec2.height - height - rec2.border.width
-        x: 2*rec2.width - 0*rec2.border.width - gaeme.spacing - width - 1
+        y: rec2.height - height
+        x: 2*rec2.width - width + 2
+        Text{text:qsTr("G"); color: "white"; anchors.centerIn: parent; scale:2 }
 
     }
 
-    Rectangle{
+    Note{
         id: l3
-        width: 50
-        height: 50
         color: "green"
-        y: rec3.height - height - rec3.border.width
-        x: 3*rec3.width - 0*rec3.border.width - 0.5*gaeme.spacing - width
+        y: rec3.height - height
+        x: 3*rec3.width - width + 4
+        Text{text:qsTr("J"); color: "white"; anchors.centerIn: parent; scale:2}
 
     }
 
-    Rectangle{
+    Note{
         id: l4
-        width: 50
-        height: 50
         color: "yellow"
-        y: rec4.height - height - rec4.border.width
-        x: 4*rec4.width - 0*rec4.border.width - 0*gaeme.spacing - width
+        y: rec4.height - height
+        x: 4*rec4.width - width + 6
+        Text{text:qsTr("K"); color: "white"; anchors.centerIn: parent; scale:2 }
 
     }
 

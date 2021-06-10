@@ -8,6 +8,4 @@ Rectangle{
     radius: 10
 
 
-
-
 }

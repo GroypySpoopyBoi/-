@@ -26,8 +26,8 @@ Window {
 
             anchors.centerIn:w.contentItem
 
-            onSuperAwesomeSignal: tf.text = a
-            onGameisover:{ dia.open(); tf.color = "red"}
+            onSuperAwesomeSignal: tr.text = a
+            onGameisover:{ dia.open(); tr.color = "red"}
 
         }
         Toolbar {
@@ -36,9 +36,9 @@ Window {
             TextField{
                 id: tf
                 Layout.fillWidth: true
-                text: "0"
+                Text{id:tr;text: "0"; anchors.centerIn: parent}
             }
-            onNewGame: {dia.visible = false; newGamestarted()}
+            onNewGame: {dia.visible = false; tr.color = "black"; tr.text = 0; gp.newGamestarted()}
 
         }
 
@@ -48,7 +48,7 @@ Window {
             anchors.centerIn: parent
             contentItem: Text {
                 id: ttt
-                text: qsTr("game is over! look below to see your results!")
+                text: qsTr("The game is over! See your results below!")
             }
 
 
